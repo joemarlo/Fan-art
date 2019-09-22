@@ -48,7 +48,7 @@ buildFan <- function(hue = 0.5, saturation = 0.20, value = 0.55, alpha = 0.5,
     y.end <- y.end[vector.order]
     
     # sort the colors by strength
-    # leave out hsv o there is still some color variance per plot
+    # leave out hsv so there is still some color variance per plot
     # h <- sort(h)
     # s <- sort(s)
     # v <- sort(v)
