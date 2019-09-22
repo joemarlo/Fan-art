@@ -2,7 +2,7 @@
 
 `Fan-art.R`: script builds randomly generated plots by layering segments from a single orgin
 
-![](Fans.png)
-![](fans_monochrome.png)
-![](fans_square.png_
-![](Segments_bg_dark_2.png)
+![](Plotted_images/PlottedFans.png)
+![](Plotted_images/fans_monochrome.png)
+![](Plotted_images/fans_square.png_
+![](Plotted_images/Segments_bg_dark_2.png)
