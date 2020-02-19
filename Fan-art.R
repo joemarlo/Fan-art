@@ -201,3 +201,14 @@ printFans(hsv.array = hues,
           output.image.height = 2500,
           depth = TRUE,
           background = "seashell2")
+
+
+# create images for gif ---------------------------------------------------
+
+for (i in 1:20){
+  png(filename = paste0('Plotted_images/Gif/fan', i, '.png'),
+      width = 500,
+      height = 500)
+  buildFan()
+  dev.off()
+}
