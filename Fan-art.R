@@ -249,3 +249,54 @@ for (i in c(1:40, 39:1)){
 
 # now in GIMP, file-> open 'fan1.png' -> Image->Mode->RBG->File->
 # Open as layers-> select the rest of the files -> File -> export as -> 'name'.gif
+
+n.plots <- 80
+hues <- seq(0, 1, length = 12)
+logis.curve <- 1 / ( 1 + exp(seq(3, -3, length = n.plots/2)))
+logis.curve <- c(logis.curve, rev(logis.curve))
+
+name <- 1
+
+for (i in 1:n.plots){
+  # set where to save
+  png(filename = paste0('Plotted_images/multiGif/fan', name, '.png'),
+      width = 1000,
+      height = 1000)
+  
+  # set graphical parameters
+  par(bg = 'white',
+      mar = rep(2, 4),
+      mfrow = c(3, 4),
+      bty = "n")
+
+  
+  for (j in 1:12) {
+    n <-  floor(logis.curve[i] * 100)
+    
+    if (i %% j == 0){
+      buildFan(alpha = 0)
+      next
+    }
+    
+    # build the plot
+    buildFan(
+      hue = hues[j],
+      saturation = 1 - logis.curve[i],
+      value = 0.5,
+      alpha = 1 - logis.curve[i],
+      n.segments = n,
+      x.end = runif(n,-1, 1),
+      y.end = runif(n,-1, 1),
+      x.center = rep(0, n),
+      y.center = rep(0, n),
+      depth = TRUE
+    )
+  }
+    
+  # save it
+  dev.off()
+  name <- name + 1
+}
+
+
+
