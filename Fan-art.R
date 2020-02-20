@@ -93,7 +93,7 @@ buildFan <- function(hue = 0.5, saturation = 0.20, value = 0.55, alpha = 0.5,
 # function wraps around buildFan to automate the printing of multiple plots ----------------------------------------------------
 
 printFans <- function(hsv.array = seq(0, 1, length.out = 100), filename = "fans.png",
-                      output.image.width = 4608, output.image.height = 2880, background = "seashell", ...){
+                      output.image.width = 4608, output.image.height = 2880, background = "white", ...){
   
   # function automates the printing and saving of buildFan
   # hsv.array is the array colors to map the buildFan function over. If only one vector is provided then it is
@@ -140,12 +140,34 @@ printFans()
 
 # build different designs -------------------------------------------------
 
+png(filename = paste0('Plotted_images/singlefan.png', name, '.png'),
+    width = 1000,
+    height = 1000)
+buildFan()
+dev.off()
+
+png(filename = paste0('Plotted_images/singlefanDepth.png', name, '.png'),
+    width = 1000,
+    height = 1000)
+buildFan(n.segments = 1000,
+         x.end = runif(1000, -1, 1),
+         y.end = runif(1000, -1, 1),
+         x.center = rep(0, 1000),
+         y.center = rep(0, 1000),
+         alpha = 0.3,
+         depth = TRUE)
+dev.off()
+
 #random
 buildFan(n.segments = 1000,
          x.end = runif(1000, -1, 1),
          y.end = runif(1000, -1, 1),
          x.center = rep(0, 1000),
-         y.center = rep(0, 1000))
+         y.center = rep(0, 1000),
+         alpha = 0.4,
+         depth = TRUE)
+
+
 
 # define the colors to map the function over
 n.plots <- 9^2
@@ -205,10 +227,25 @@ printFans(hsv.array = hues,
 
 # create images for gif ---------------------------------------------------
 
-for (i in 1:20){
-  png(filename = paste0('Plotted_images/Gif/fan', i, '.png'),
+name <- 1
+for (i in c(1:40, 39:1)){
+  n <- floor(i^2)
+  png(filename = paste0('Plotted_images/Gif/fan', name, '.png'),
       width = 500,
       height = 500)
-  buildFan()
+  buildFan(hue = i/40, 
+           saturation = 1- i/40, 
+           value = 0.5, 
+           alpha = 1 - (i/40),
+           n.segments = n,
+           x.end = runif(n, -1, 1),
+           y.end = runif(n, -1, 1),
+           x.center = rep(0, n),
+           y.center = rep(0, n),
+           depth = TRUE)
   dev.off()
+  name <- name + 1
 }
+
+# now in GIMP, file-> open 'fan1.png' -> Image->Mode->RBG->File->
+# Open as layers-> select the rest of the files -> File -> export as -> 'name'.gif
